@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 📋 Pracovní deník - Rozšířená verze
 
 Moderní webová aplikace pro vedení pracovních deníků s pokročilými funkcemi pro různé technologie, směny a personál.
@@ -201,6 +200,3 @@ Aplikace používá moderní design s:
 Aplikaci lze snadno nasadit na [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
 
 Další informace o nasazení najdete v [Next.js dokumentaci](https://nextjs.org/docs/app/building-your-application/deploying).
-=======
-# pracovni-denik
->>>>>>> d313f6e7a13cd11b37cb60fc30722a93b825feea

@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Styly pro tisk */
+@media print {
+  @page {
+    margin: 1cm;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12px;
+  }
+  
+  .print-hidden {
+    display: none !important;
+  }
+  
+  .print-shadow-none {
+    box-shadow: none !important;
+  }
+  
+  .print-border-black {
+    border-color: black !important;
+  }
+  
+  table {
+    border-collapse: collapse !important;
+  }
+  
+  th, td {
+    border: 1px solid black !important;
+    padding: 4px !important;
+  }
+  
+  .truncate {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+}
