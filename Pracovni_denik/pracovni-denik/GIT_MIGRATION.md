@@ -42,7 +42,7 @@ ssh au@192.168.1.251
 
 ```bash
 # Na serveru spusťte jednorázově:
-curl -fsSL https://raw.githubusercontent.com/your-username/pracovni-denik/main/setup-ubuntu.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Berger21/pracovni-denik/main/setup-ubuntu.sh | bash
 
 # Nebo ruční setup:
 sudo apt update && sudo apt upgrade -y
@@ -59,8 +59,8 @@ sudo chown -R $USER:$USER /var/www/pracovni-denik
 ### 4. 📥 Clone repository a deployment
 
 ```bash
-# Clone aplikace (nahraďte URL)
-git clone https://github.com/your-username/pracovni-denik.git /var/www/pracovni-denik
+# Clone aplikace
+git clone https://github.com/Berger21/pracovni-denik.git /var/www/pracovni-denik
 
 # Přejděte do adresáře
 cd /var/www/pracovni-denik

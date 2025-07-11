@@ -15,10 +15,10 @@ git push origin main
 ssh au@192.168.1.251
 
 # Setup serveru (jednorázově)
-curl -fsSL https://raw.githubusercontent.com/your-username/pracovni-denik/main/setup-ubuntu.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Berger21/pracovni-denik/main/setup-ubuntu.sh | bash
 
 # Clone a deployment
-git clone https://github.com/your-username/pracovni-denik.git /var/www/pracovni-denik
+git clone https://github.com/Berger21/pracovni-denik.git /var/www/pracovni-denik
 cd /var/www/pracovni-denik
 chmod +x deploy.sh manage.sh
 ./deploy.sh

@@ -103,7 +103,21 @@ chmod +x setup-ubuntu.sh
 
 Nyní budeme potřebovat přenést soubory z Windows na server. Máte několik možností:
 
-### Možnost A: SCP z Windows (doporučeno)
+### Možnost A: Git deployment (doporučeno)
+
+```bash
+# Na serveru
+git clone https://github.com/Berger21/pracovni-denik.git /var/www/pracovni-denik
+cd /var/www/pracovni-denik
+
+# Nastavte spustitelné práva
+chmod +x setup-ubuntu.sh deploy.sh manage.sh
+
+# Spuštění deployment
+./deploy.sh
+```
+
+### Možnost B: SCP z Windows
 
 ```powershell
 # Na Windows (PowerShell) - přejděte do složky s aplikací
@@ -116,7 +130,7 @@ Compress-Archive -Path * -DestinationPath pracovni-denik.zip
 scp pracovni-denik.zip au@192.168.1.251:~/
 ```
 
-### Možnost B: Ruční kopírování souborů
+### Možnost C: Ruční kopírování souborů
 
 ```bash
 # Na serveru vytvořte strukturu

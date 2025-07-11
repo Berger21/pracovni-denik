@@ -1,13 +1,19 @@
 @echo off
 echo.
-echo 🚀 Migrace Pracovni denik na Ubuntu Server (Git method)
+echo � Migrace Pracovni denik na Ubuntu Server - NÁVOD
 echo ====================================================
 echo.
-echo 📋 Server: 192.168.1.251
+echo ⚠️  POZOR: Toto je jen návod, ne automatický skript!
+echo.
+echo � Pro automatickou migraci použijte:
+echo    auto-migrate.bat     (Windows Batch)
+echo    auto-migrate.ps1     (PowerShell)
+echo.
+echo �📋 Server: 192.168.1.251
 echo 👤 Login: au
 echo 🔑 Heslo: GAL783vs
 echo.
-echo 🔧 Kroky migrace:
+echo 🔧 Ruční kroky migrace:
 echo.
 echo 1. Commit a push do Git repository
 echo 2. Připojení k serveru přes SSH
@@ -28,8 +34,8 @@ echo.
 echo 🔧 Nyní se připojte k serveru:
 echo ssh au@192.168.1.251
 echo.
-echo 📋 Na serveru spusťte (nahraďte URL vašeho repository):
-echo git clone https://github.com/your-username/pracovni-denik.git /var/www/pracovni-denik
+echo 📋 Na serveru spusťte:
+echo git clone https://github.com/Berger21/pracovni-denik.git /var/www/pracovni-denik
 echo cd /var/www/pracovni-denik
 echo chmod +x setup-ubuntu.sh deploy.sh manage.sh
 echo ./setup-ubuntu.sh

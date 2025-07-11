@@ -31,7 +31,7 @@ chmod +x setup-ubuntu.sh
 **Varianta B - Git (doporučeno):**
 ```bash
 cd /var/www/
-git clone https://github.com/your-repo/pracovni-denik.git
+git clone https://github.com/Berger21/pracovni-denik.git
 sudo chown -R $USER:$USER pracovni-denik
 ```
 
