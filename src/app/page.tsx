@@ -25,6 +25,9 @@ import {
 import { exportDovatPDF } from '@/lib/pdf';
 import TechnologInterface from '@/components/TechnologInterface';
 import Statistiky from '@/components/Statistiky';
+import ErrorDisplay from '@/components/ErrorDisplay';
+import NavigationButtons from '@/components/NavigationButtons';
+import StepWrapper from '@/components/StepWrapper';
 
 const SMENY_VSEDNI: SmenaInfo[] = [
   { nazev: 'ranní', cas_od: '06:00', cas_do: '14:00' },
@@ -563,22 +566,8 @@ export default function Home() {
   };
 
   const renderKrok1 = () => (
-    <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-        Krok 1: Výběr technologie
-      </h2>
-      
-      {/* Zobrazení chyb */}
-      {validacniChyby.length > 0 && (
-        <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
-          <h3 className="font-semibold text-red-800 mb-2">⚠️ Opravte následující chyby:</h3>
-          <ul className="list-disc list-inside text-red-700">
-            {validacniChyby.map((chyba, index) => (
-              <li key={index}>{chyba}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+    <StepWrapper stepNumber={1} title="Výběr technologie">
+      <ErrorDisplay errors={validacniChyby} />
       
       <div className="grid grid-cols-2 gap-4">
         {TECHNOLOGIE.map((tech) => (
@@ -624,26 +613,12 @@ export default function Home() {
           </button>
         </div>
       )}
-    </div>
+    </StepWrapper>
   );
 
   const renderKrok2 = () => (
-    <div className="bg-white rounded-lg shadow-lg p-8 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-        Krok 2: Nastavení směny a personálu
-      </h2>
-      
-      {/* Zobrazení chyb */}
-      {validacniChyby.length > 0 && (
-        <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
-          <h3 className="font-semibold text-red-800 mb-2">⚠️ Opravte následující chyby:</h3>
-          <ul className="list-disc list-inside text-red-700">
-            {validacniChyby.map((chyba, index) => (
-              <li key={index}>{chyba}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+    <StepWrapper stepNumber={2} title="Nastavení směny a personálu" maxWidth="3xl">
+      <ErrorDisplay errors={validacniChyby} />
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Směna */}
@@ -710,21 +685,11 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex justify-between mt-8">
-        <button
-          onClick={vratitZpet}
-          className="bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
-        >
-          ← Zpět
-        </button>
-        <button
-          onClick={pokracovatDalsi}
-          className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-        >
-          Pokračovat →
-        </button>
-      </div>
-    </div>
+      <NavigationButtons
+        onBack={vratitZpet}
+        onNext={pokracovatDalsi}
+      />
+    </StepWrapper>
   );
 
   const renderKrok3 = () => (
@@ -930,30 +895,18 @@ export default function Home() {
           )}
         </div>
 
-        <div className="flex justify-between">
-          <button
-            onClick={vratitZpet}
-            className="bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
-          >
-            ← Zpět
-          </button>
-          <button
-            onClick={pokracovatDalsi}
-            className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
-          >
-            K potvrzení →
-          </button>
-        </div>
+        <NavigationButtons
+          onBack={vratitZpet}
+          onNext={pokracovatDalsi}
+          nextLabel="K potvrzení →"
+          nextColor="green"
+        />
       </div>
     </div>
   );
 
   const renderKrok4 = () => (
-    <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-        Krok 4: Potvrzení a předání směny
-      </h2>
-      
+    <StepWrapper stepNumber={4} title="Potvrzení a předání směny" maxWidth="4xl">      
       {/* Přehled směny */}
       <div className="bg-gray-50 rounded-lg p-6 mb-8">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Přehled směny</h3>
@@ -1052,23 +1005,14 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex justify-between">
-        <button
-          onClick={vratitZpet}
-          className="bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
-        >
-          ← Zpět
-        </button>
-        {potvrzeni.smenu_predal && potvrzeni.smenu_prevzal && (
-          <button
-            onClick={dokoncitAUlozit}
-            className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
-          >
-            🖨️ Dokončit a exportovat PDF
-          </button>
-        )}
-      </div>
-    </div>
+      <NavigationButtons
+        onBack={vratitZpet}
+        onNext={dokoncitAUlozit}
+        nextLabel="🖨️ Dokončit a exportovat PDF"
+        nextColor="green"
+        showNext={potvrzeni.smenu_predal && potvrzeni.smenu_prevzal}
+      />
+    </StepWrapper>
   );
 
   return (
