@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import { 
   PracovniZaznam, 
   ZakladniUdaje, 
@@ -9,8 +10,7 @@ import {
   UlozenyDenik,
   TehnologovePoznaky,
   UpozorneniPravidlo,
-  TypSmeny,
-  TypTechnologie
+  TypSmeny
 } from '@/types';
 import { 
   ulozitDenik, 
@@ -19,8 +19,7 @@ import {
   najitPredchadzajuciDenik,
   generovatId,
   formatDatumCas,
-  nacistUpozorneni,
-  ulozitUpozorneni
+  nacistUpozorneni
 } from '@/lib/storage';
 import { exportDovatPDF } from '@/lib/pdf';
 import TechnologInterface from '@/components/TechnologInterface';
@@ -291,7 +290,7 @@ export default function Home() {
   };
 
   // Načtení poznámek technologa
-  const nactiTechnologovePoznamky = () => {
+  const nactiTechnologovePoznamky = useCallback(() => {
     if (zakladniUdaje.datum && zakladniUdaje.smena && zakladniUdaje.technologie) {
       const poznamky = najitPoznamkyProDatumASmenu(
         zakladniUdaje.datum, 
@@ -302,7 +301,7 @@ export default function Home() {
     } else {
       setTechnologovePoznamky([]);
     }
-  };
+  }, [zakladniUdaje.datum, zakladniUdaje.smena, zakladniUdaje.technologie]);
 
   // Rozšířená validace
   const validateStep = (stepNumber: number): string[] => {
@@ -345,7 +344,7 @@ export default function Home() {
 
   useEffect(() => {
     nactiTechnologovePoznamky();
-  }, [zakladniUdaje.datum, zakladniUdaje.smena, zakladniUdaje.technologie]);
+  }, [zakladniUdaje.datum, zakladniUdaje.smena, zakladniUdaje.technologie, nactiTechnologovePoznamky]);
 
   // Handler pro změnu vedoucího směny s automatickým vyplněním "Směnu předal"
   const handleVedouciSmenyChange = (value: string) => {
@@ -368,7 +367,7 @@ export default function Home() {
       const predchadzajuci = najitPredchadzajuciDenik(zakladniUdaje.technologie, zakladniUdaje.datum, zakladniUdaje.smena);
       setPredchadzajuciDenik(predchadzajuci);
     }
-  }, [zakladniUdaje.technologie, zakladniUdaje.datum, krok]);
+  }, [zakladniUdaje.technologie, zakladniUdaje.datum, zakladniUdaje.smena, krok]);
 
   // Nastavení času podle směny
   const handleSmenaChange = (smena: TypSmeny) => {
@@ -1092,9 +1091,11 @@ export default function Home() {
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-4">
-                    <img 
+                    <Image 
                       src="/logo-new.png" 
                       alt="Logo firmy" 
+                      width={48}
+                      height={48}
                       className="h-12 w-auto object-contain"
                     />
                     <h1 className="text-3xl font-bold text-gray-800">
