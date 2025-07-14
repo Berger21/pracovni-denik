@@ -28,6 +28,7 @@ import Statistiky from '@/components/Statistiky';
 import ErrorDisplay from '@/components/ErrorDisplay';
 import NavigationButtons from '@/components/NavigationButtons';
 import StepWrapper from '@/components/StepWrapper';
+import { FormInput, FormTextArea } from '@/components/FormComponents';
 
 const SMENY_VSEDNI: SmenaInfo[] = [
   { nazev: 'ranní', cas_od: '06:00', cas_do: '14:00' },
@@ -646,31 +647,23 @@ export default function Home() {
 
         {/* Personál */}
         <div className="space-y-4">
-          <div>
-            <label className="block text-lg font-semibold text-gray-700 mb-2">
-              Vedoucí směny <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              value={zakladniUdaje.vedouci_smeny}
-              onChange={(e) => handleVedouciSmenyChange(e.target.value)}
-              placeholder="Jméno vedoucího směny"
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900 placeholder-blue-400"
-            />
-          </div>
+          <FormInput
+            label="Vedoucí směny"
+            required
+            type="text"
+            value={zakladniUdaje.vedouci_smeny}
+            onChange={(e) => handleVedouciSmenyChange(e.target.value)}
+            placeholder="Jméno vedoucího směny"
+          />
 
-          <div>
-            <label className="block text-lg font-semibold text-gray-700 mb-2">
-              Obsluha linky <span className="text-red-500">*</span>
-            </label>
-            <textarea
-              value={zakladniUdaje.obsluha_linky}
-              onChange={(e) => setZakladniUdaje(prev => ({ ...prev, obsluha_linky: e.target.value }))}
-              placeholder="Jména obsluhy linky&#10;(každé jméno na nový řádek)&#10;např.:&#10;Jan Novák&#10;Marie Svobodová"
-              rows={4}
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900 placeholder-blue-400 resize-vertical"
-            />
-          </div>
+          <FormTextArea
+            label="Obsluha linky"
+            required
+            value={zakladniUdaje.obsluha_linky}
+            onChange={(e) => setZakladniUdaje(prev => ({ ...prev, obsluha_linky: e.target.value }))}
+            placeholder="Jména obsluhy linky&#10;(každé jméno na nový řádek)&#10;např.:&#10;Jan Novák&#10;Marie Svobodová"
+            rows={4}
+          />
         </div>
       </div>
 
